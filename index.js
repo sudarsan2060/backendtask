@@ -12,6 +12,7 @@ app.use(express.json());
 
 app.use(cors());
 
+app.get("/",(req,res)=>{ return res.send("hello server")});
 app.post("/api/v1/enroll", async (req, res) => {
   const { name, age, batch } = req.body;
   if (!name || !age || !batch) {
