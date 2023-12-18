@@ -19,11 +19,15 @@ app.post("/api/v1/enroll", async (req, res) => {
   if (!name || !age || !batch) {
     return res.status(401).json({ error: "Incomplete data" });
   }
+  if(age<18 ||age>65)
+    return res.status(401).json({error:"age must be 18-65"});
   const newuser = await User.create({ name, age, batch });
+  console.log(newuser);
+  
   if (newuser) {
-    return res.status(201).send({ msg: "Enrolled successfully", newuser });
+    return res.status(201).json({ msg: "Enrolled successfully", newuser });
   } else {
-    return res.status(400).send({ msg: "Error during enroll" });
+    return res.status(400).json({ msg: "Error during enroll" });
   }
 });
 
