@@ -11,8 +11,9 @@ connect();
 app.use(express.json());
 
 app.use(cors());
-
-app.get("/",(req,res)=>{ return res.send("hello server")});
+app.get("/", (req, res) => {
+  return res.send("hello server");
+});
 app.post("/api/v1/enroll", async (req, res) => {
   const { name, age, batch } = req.body;
   if (!name || !age || !batch) {
@@ -20,9 +21,9 @@ app.post("/api/v1/enroll", async (req, res) => {
   }
   const newuser = await User.create({ name, age, batch });
   if (newuser) {
-    res.status(201).send({ msg: "Enrolled successfully", newuser });
+    return res.status(201).send({ msg: "Enrolled successfully", newuser });
   } else {
-    res.status(400).send({ msg: "Error during enroll" });
+    return res.status(400).send({ msg: "Error during enroll" });
   }
 });
 
